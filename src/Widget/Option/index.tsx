@@ -11,7 +11,7 @@ const Option: FC<Props> = ({ title, onClick }) => {
   const handleClick = () => onClick(title);
 
   return (
-    <Button type="button" onClick={handleClick}>
+    <Button data-testid="option" type="button" onClick={handleClick}>
       {title}
     </Button>
   );

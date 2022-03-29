@@ -24,7 +24,7 @@ export const useLocalStorage = <T>(key: string, initialValue: T | null): [T | nu
 
   useEffect(() => {
     setStoredValue(readValue());
-  }, [readValue]);
+  }, []);
 
 
   return [storedValue, setValue];

@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useLocalStorage } from './hooks';
+import React, { useRef, useState } from 'react';
+import { useLocalStorage, useWidgetInitialData } from './hooks';
 
 import Option from './Option';
 import Results from './Results';
@@ -8,22 +8,14 @@ import { Wrap, Options, WidgetTitle, Question, Body } from './styled';
 import { Options as OptionsType } from './types';
 
 const App = () => {
-  const [question, setQuestion] = useState('');
   const [showResults, setShowResults] = useState(false);
-  const [options, setOptions] = useState<string[]>([]);
-  const [widgetId, setWidgetId] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
 
   const currentWidget = useRef<HTMLDivElement>(null);
 
-  const [results, setResultValue] = useLocalStorage<OptionsType>(widgetId, null);
+  const { options, question, widgetId } = useWidgetInitialData(currentWidget);
 
-  useEffect(() => {
-    const element = currentWidget.current?.closest('.poll_widget[data-question]');
-    setWidgetId(element?.getAttribute('id') || window.location.toString());
-    setQuestion(element?.getAttribute('data-question') || '');
-    setOptions(element?.getAttribute('data-options')?.split(';') || []);
-  }, []);
+  const [results, setResultValue] = useLocalStorage<OptionsType>(widgetId, null);
 
   const handleClick = (option: string) => {
     if (results) {
@@ -48,15 +40,17 @@ const App = () => {
     setShowResults(true);
   };
 
-  return <Wrap ref={currentWidget}>
-    <WidgetTitle>Simple vote widget</WidgetTitle>
-    <Question>{question}</Question>
-    <Body>
-      {showResults ? <Results selectedOption={selectedOption} widgetId={widgetId} /> : <Options>
-        {options.map((option, i) => <Option key={i} title={option} onClick={handleClick} />)}
-      </Options>}
-    </Body>
-  </Wrap>;
+  return (
+    <Wrap ref={currentWidget}>
+      <WidgetTitle data-testid="widgetTitle">Simple vote widget</WidgetTitle>
+      <Question data-testid="widgetQuestion">{question}</Question>
+      <Body>
+        {showResults ? <Results selectedOption={selectedOption} widgetId={widgetId} /> : <Options>
+          {options.map((option, i) => <Option key={i} title={option} onClick={handleClick} />)}
+        </Options>}
+      </Body>
+    </Wrap>
+  );
 };
 
 export default App;

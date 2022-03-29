@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, memo, useMemo } from 'react';
 import { useLocalStorage } from '../hooks';
 
 import { Options } from '../types';
@@ -20,7 +20,7 @@ const Results: FC<Props> = ({ selectedOption, widgetId }) => {
   }
 
   return (
-    <div>
+    <div data-testid="results">
       {Object.keys(results).map((title, index) => (
         <ResultItem isSelected={selectedOption === title} title={title} key={index} count={results[title]} percentage={Math.round(results[title] / total * 100)} />
       ))}
@@ -28,4 +28,4 @@ const Results: FC<Props> = ({ selectedOption, widgetId }) => {
   );
 };
 
-export default Results;
+export default memo(Results);
