@@ -1,15 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import Widget from './Widget';
 import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const widgets = document.querySelectorAll('.poll_widget');
+
+widgets.forEach((widget) => {
+  ReactDOM.render(
+      <React.StrictMode>
+        <Widget />
+      </React.StrictMode>,
+      widget,
+  );
+});
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
