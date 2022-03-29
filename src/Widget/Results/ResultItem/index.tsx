@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Count, Percentage, Title, Wrap } from './styled';
+import { CountWrap, Percentage, Title, Wrap, Count } from './styled';
 
 type Props = {
   title: string;
@@ -12,9 +12,10 @@ const ResultItem: FC<Props> = ({ title, count, percentage, isSelected }) => {
   return (
     <Wrap>
       <Title isSelected={isSelected}>{title}</Title>
-      <Count count={count} percentage={percentage}>{count}
+      <CountWrap percentage={percentage}>
+        <Count>{count}</Count>
         <Percentage>{percentage}%</Percentage>
-      </Count>
+      </CountWrap>
     </Wrap>
   );
 };

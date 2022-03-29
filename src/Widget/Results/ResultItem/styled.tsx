@@ -10,7 +10,7 @@ export const Title = styled.p<{ isSelected: boolean }>`
   padding-bottom: 8px;
 `;
 
-export const Count = styled.span<{ percentage: number, count: number }>`
+export const CountWrap = styled.span<{ percentage: number }>`
     background-color: #ddd;
     transition: background-color 250ms cubic-bezier(0.4,0,0.2,1) 0ms;
     width: 100%;
@@ -20,22 +20,25 @@ export const Count = styled.span<{ percentage: number, count: number }>`
     position: relative;
     height: 24px;
   &:after {
-    box-sizing: border-box;
-    content: '${({ count }) => count}';
+    content: '';
     display: inline-block;
     background-color: #f9a524;
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
-    padding-left: 8px;
     width: ${({ percentage }) => percentage}%;
   }
 `;
 
+export const Count = styled.span`
+  position: absolute;
+  z-index: 1;
+`;
+
 export const Percentage = styled.span`
   position: absolute;
-  right: 0;
+  right: 8px;
   z-index: 1;
 `;
 
