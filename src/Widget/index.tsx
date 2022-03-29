@@ -7,7 +7,7 @@ import Results from './Results';
 import { Wrap, Options, WidgetTitle, Question, Body } from './styled';
 import { Options as OptionsType } from './types';
 
-const App = () => {
+const Widget = () => {
   const [showResults, setShowResults] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
 
@@ -53,4 +53,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Widget;
